@@ -1,26 +1,294 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nJW-A6-Lx1">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MyGeocell-Regular.ttf">
+            <string>MyGeocell-Regular</string>
+        </array>
+        <array key="bpg_phone_sans_bold.ttf">
+            <string>BPGPhoneSans-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Title-->
+        <scene sceneID="q2j-3n-TSZ">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6CD-HG-eyW" customClass="CalculatorViewController" customModule="BMICalculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="oQQ-Oy-aMT"/>
+                        <viewControllerLayoutGuide type="bottom" id="nza-SG-hx6"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="Lrd-lQ-Hvx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIr-Xe-Fa0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="xvF-CX-kK8"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="კალკულატორი" id="BJU-rd-fiy"/>
+                                </items>
+                            </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bAH-7O-6Cw">
+                                <rect key="frame" x="0.0" y="64" width="375" height="269"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16.96" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hyj-qz-Eb4">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="269"/>
+                                        <fontDescription key="fontDescription" name="BPGPhoneSans-Bold" family="BPG Phone Sans" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pm6-CC-Yao">
+                                <rect key="frame" x="0.0" y="333" width="375" height="334"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Lpz-kC-tqc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="334"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dSj-tV-hqf">
+                                                <rect key="frame" x="0.0" y="20" width="375" height="88"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Y0a-Rf-Cve">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ასაკი" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLd-YD-3Ra">
+                                                                <rect key="frame" x="8" y="0.0" width="46.5" height="28"/>
+                                                                <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
+                                                                <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lwp-Bn-F80">
+                                                                <rect key="frame" x="238" y="0.0" width="129" height="29"/>
+                                                                <segments>
+                                                                    <segment title="მამრ"/>
+                                                                    <segment title="მდედრ"/>
+                                                                </segments>
+                                                                <color key="tintColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXa-Os-nWG">
+                                                        <rect key="frame" x="0.0" y="36" width="375" height="52"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X5N-0O-6WX" customClass="DesignableView" customModule="BMICalculator" customModuleProvider="target">
+                                                                <rect key="frame" x="162" y="11" width="50" height="30"/>
+                                                                <color key="backgroundColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rlm-n9-F6R">
+                                                                <rect key="frame" x="0.0" y="1" width="375" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="9q3-FF-W6m"/>
+                                                                </constraints>
+                                                            </scrollView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstItem="X5N-0O-6WX" firstAttribute="height" secondItem="Rlm-n9-F6R" secondAttribute="height" multiplier="0.6" id="50I-bx-Gd9"/>
+                                                            <constraint firstItem="X5N-0O-6WX" firstAttribute="centerX" secondItem="Rlm-n9-F6R" secondAttribute="centerX" id="Lf6-lR-g7v"/>
+                                                            <constraint firstItem="X5N-0O-6WX" firstAttribute="width" secondItem="Rlm-n9-F6R" secondAttribute="height" multiplier="1:1" id="MW8-8z-i0V"/>
+                                                            <constraint firstAttribute="height" constant="52" id="YaX-VB-HVp"/>
+                                                            <constraint firstItem="X5N-0O-6WX" firstAttribute="centerY" secondItem="Rlm-n9-F6R" secondAttribute="centerY" id="avJ-nL-VpR"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Rlm-n9-F6R" secondAttribute="trailing" id="czA-bn-utI"/>
+                                                            <constraint firstItem="Rlm-n9-F6R" firstAttribute="leading" secondItem="uXa-Os-nWG" secondAttribute="leading" id="w0I-SV-u2N"/>
+                                                            <constraint firstItem="Rlm-n9-F6R" firstAttribute="centerY" secondItem="uXa-Os-nWG" secondAttribute="centerY" id="xaU-Jx-HQl"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Z0e-KY-cML">
+                                                <rect key="frame" x="0.0" y="128" width="375" height="88"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="UZS-KZ-V6e">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="წონა" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFn-Kp-QiL">
+                                                                <rect key="frame" x="8" y="0.0" width="42" height="28"/>
+                                                                <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
+                                                                <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ve-yY-ekn">
+                                                                <rect key="frame" x="278" y="0.0" width="89" height="29"/>
+                                                                <segments>
+                                                                    <segment title="კგ"/>
+                                                                    <segment title="ლბს"/>
+                                                                </segments>
+                                                                <color key="tintColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OOO-hj-PN7">
+                                                        <rect key="frame" x="0.0" y="36" width="375" height="52"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAt-Y2-lsP" customClass="DesignableView" customModule="BMICalculator" customModuleProvider="target">
+                                                                <rect key="frame" x="162" y="11" width="50" height="30"/>
+                                                                <color key="backgroundColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwX-R1-zWz">
+                                                                <rect key="frame" x="0.0" y="1" width="375" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="dlD-FJ-Hbg"/>
+                                                                </constraints>
+                                                            </scrollView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="BwX-R1-zWz" secondAttribute="trailing" id="DiF-3H-mlU"/>
+                                                            <constraint firstItem="XAt-Y2-lsP" firstAttribute="centerX" secondItem="BwX-R1-zWz" secondAttribute="centerX" id="ErI-fo-cSJ"/>
+                                                            <constraint firstItem="BwX-R1-zWz" firstAttribute="leading" secondItem="OOO-hj-PN7" secondAttribute="leading" id="N15-oU-NBv"/>
+                                                            <constraint firstItem="XAt-Y2-lsP" firstAttribute="centerY" secondItem="BwX-R1-zWz" secondAttribute="centerY" id="NHq-dl-623"/>
+                                                            <constraint firstItem="XAt-Y2-lsP" firstAttribute="width" secondItem="BwX-R1-zWz" secondAttribute="height" multiplier="1:1" id="Quv-ch-0IA"/>
+                                                            <constraint firstAttribute="height" constant="52" id="TSf-Xn-8xC"/>
+                                                            <constraint firstItem="XAt-Y2-lsP" firstAttribute="height" secondItem="BwX-R1-zWz" secondAttribute="height" multiplier="0.6" id="g2v-BV-HT7"/>
+                                                            <constraint firstItem="BwX-R1-zWz" firstAttribute="centerY" secondItem="OOO-hj-PN7" secondAttribute="centerY" id="gJD-dk-aqe"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-8G-n7T">
+                                                <rect key="frame" x="0.0" y="236" width="375" height="88"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ZCe-nB-5VD">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="სიმაღლე" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68e-l0-f1J">
+                                                                <rect key="frame" x="8" y="0.0" width="78" height="28"/>
+                                                                <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
+                                                                <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TOH-kY-dtz">
+                                                                <rect key="frame" x="278" y="0.0" width="89" height="29"/>
+                                                                <segments>
+                                                                    <segment title="სმ"/>
+                                                                    <segment title="ინჩი"/>
+                                                                </segments>
+                                                                <color key="tintColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nyx-Fn-5ZP">
+                                                        <rect key="frame" x="0.0" y="36" width="375" height="52"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqC-sU-Keg" customClass="DesignableView" customModule="BMICalculator" customModuleProvider="target">
+                                                                <rect key="frame" x="162" y="11" width="50" height="30"/>
+                                                                <color key="backgroundColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qg8-BL-tFQ">
+                                                                <rect key="frame" x="0.0" y="1" width="375" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="4TG-66-f5d"/>
+                                                                </constraints>
+                                                            </scrollView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="52" id="5ij-IC-3ce"/>
+                                                            <constraint firstItem="AqC-sU-Keg" firstAttribute="height" secondItem="qg8-BL-tFQ" secondAttribute="height" multiplier="0.6" id="8L2-hw-itp"/>
+                                                            <constraint firstItem="AqC-sU-Keg" firstAttribute="centerY" secondItem="qg8-BL-tFQ" secondAttribute="centerY" id="YYl-B0-EmG"/>
+                                                            <constraint firstItem="qg8-BL-tFQ" firstAttribute="leading" secondItem="Nyx-Fn-5ZP" secondAttribute="leading" id="ZuS-67-wam"/>
+                                                            <constraint firstItem="qg8-BL-tFQ" firstAttribute="centerY" secondItem="Nyx-Fn-5ZP" secondAttribute="centerY" id="eRm-PI-THD"/>
+                                                            <constraint firstItem="AqC-sU-Keg" firstAttribute="width" secondItem="qg8-BL-tFQ" secondAttribute="height" multiplier="1:1" id="jx2-FJ-F7I"/>
+                                                            <constraint firstItem="AqC-sU-Keg" firstAttribute="centerX" secondItem="qg8-BL-tFQ" secondAttribute="centerX" id="os5-4l-8RO"/>
+                                                            <constraint firstAttribute="trailing" secondItem="qg8-BL-tFQ" secondAttribute="trailing" id="x1N-qf-2iI"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="20" left="0.0" bottom="10" right="0.0"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Lpz-kC-tqc" secondAttribute="trailing" id="B3U-VU-INC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lpz-kC-tqc" secondAttribute="bottom" id="DlY-e5-gLD"/>
+                                    <constraint firstItem="Lpz-kC-tqc" firstAttribute="top" secondItem="Pm6-CC-Yao" secondAttribute="top" id="PAa-Fq-HHW"/>
+                                    <constraint firstItem="Lpz-kC-tqc" firstAttribute="leading" secondItem="Pm6-CC-Yao" secondAttribute="leading" id="vOW-MZ-t6U"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Pm6-CC-Yao" firstAttribute="top" secondItem="bAH-7O-6Cw" secondAttribute="bottom" id="8qB-Cg-4tY"/>
+                            <constraint firstItem="bAH-7O-6Cw" firstAttribute="leading" secondItem="Lrd-lQ-Hvx" secondAttribute="leading" id="Cqo-Kw-xoK"/>
+                            <constraint firstAttribute="trailing" secondItem="bAH-7O-6Cw" secondAttribute="trailing" id="D30-J1-Xk0"/>
+                            <constraint firstItem="mIr-Xe-Fa0" firstAttribute="leading" secondItem="Lrd-lQ-Hvx" secondAttribute="leading" id="G55-0I-wcM"/>
+                            <constraint firstItem="mIr-Xe-Fa0" firstAttribute="top" secondItem="Lrd-lQ-Hvx" secondAttribute="top" id="GG1-h3-q5S"/>
+                            <constraint firstItem="nza-SG-hx6" firstAttribute="top" secondItem="Pm6-CC-Yao" secondAttribute="bottom" id="Jg4-k5-hti"/>
+                            <constraint firstItem="bAH-7O-6Cw" firstAttribute="top" secondItem="mIr-Xe-Fa0" secondAttribute="bottom" id="K29-z9-qhg"/>
+                            <constraint firstAttribute="trailing" secondItem="mIr-Xe-Fa0" secondAttribute="trailing" id="ZQh-cc-YBy"/>
+                            <constraint firstAttribute="trailing" secondItem="Pm6-CC-Yao" secondAttribute="trailing" id="aGI-lS-JAB"/>
+                            <constraint firstItem="Pm6-CC-Yao" firstAttribute="leading" secondItem="Lrd-lQ-Hvx" secondAttribute="leading" id="fWa-0H-kdG"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="cdX-9d-LZO"/>
+                    <connections>
+                        <outlet property="ageScrollView" destination="Rlm-n9-F6R" id="Xln-Aa-uAy"/>
+                        <outlet property="controlerWrapperView" destination="Pm6-CC-Yao" id="rZK-UY-2ls"/>
+                        <outlet property="heightScrollView" destination="qg8-BL-tFQ" id="7tb-92-o4k"/>
+                        <outlet property="navigationBar" destination="mIr-Xe-Fa0" id="bgq-lP-eiq"/>
+                        <outlet property="weightScrollView" destination="BwX-R1-zWz" id="GEM-w6-vca"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nRM-0V-Ofi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2248.8000000000002" y="1570.1649175412294"/>
+        </scene>
+        <!--Base Navigation Controller-->
+        <scene sceneID="LLC-Cn-1Fk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="nJW-A6-Lx1" customClass="BaseNavigationController" customModule="BMICalculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gb9-FE-uEe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6CD-HG-eyW" kind="relationship" relationship="rootViewController" id="WyY-yc-4N2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uDX-7H-34d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1309.5999999999999" y="1570.1649175412294"/>
         </scene>
     </scenes>
 </document>
