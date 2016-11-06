@@ -4,7 +4,7 @@ extension UINavigationBar {
     func setShadowImage(withColor color: UIColor) {
         shadowImage = UIImage.image(
             withColor: color,
-            inRect: CGRect(x: 0, y: 0, width: 1, height: 1))
+            inRect: CGRect(x: 0, y: 0, width: 1, height: 0.5))
     }
     
     
@@ -15,16 +15,16 @@ extension UINavigationBar {
         setBackgroundImage(image, for: UIBarMetrics.default)
     }
     
-    func defaultBar(withShadowColor color: UIColor = ProjectColor.navigationBarShadowColor.color) {
+    func defaultBar(withShadowColor color: UIColor = UIColor.white.withAlphaComponent(0.4)) {
         barTintColor = ProjectColor.navigationBarTitleColor.color
         tintColor = ProjectColor.geocell.color
         titleTextAttributes = [
-            NSForegroundColorAttributeName: ProjectColor.navigationBarTitleColor.color,
-            NSFontAttributeName: UIFont(name: ProjectFont.base.rawValue, size: 15)!
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName: UIFont(name: ProjectFont.base.rawValue, size: 16)!
         ]
-        isTranslucent = false
+        isTranslucent = true
         
         setShadowImage(withColor: color)
-        setBackgroundImage(withColor: UIColor.white)
+        setBackgroundImage(withColor: UIColor.clear)
     }
 }
