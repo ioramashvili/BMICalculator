@@ -9,6 +9,12 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var heightScrollView: UIScrollView!
     @IBOutlet weak var weightScrollView: UIScrollView!
     
+    @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    
+    @IBOutlet weak var resultLabel: UILabel!
+    
     var model: Model!
     
     override func viewDidLoad() {
@@ -16,11 +22,11 @@ class CalculatorViewController: UIViewController {
         
         navigationBar.defaultBar()
         
-        let item1 = Item(section: .age, dimention: .male, scrollView: ageScrollView, titleLabel: UILabel())
-        let item2 = Item(section: .height, dimention: .cm, scrollView: heightScrollView, titleLabel: UILabel())
-        let item3 = Item(section: .weight, dimention: .kg, scrollView: weightScrollView, titleLabel: UILabel())
+        let item1 = Item(section: .age, dimention: .male, scrollView: ageScrollView, titleLabel: ageLabel)
+        let item2 = Item(section: .height, dimention: .cm, scrollView: heightScrollView, titleLabel: heightLabel)
+        let item3 = Item(section: .weight, dimention: .kg, scrollView: weightScrollView, titleLabel: weightLabel)
         
-        model = Model(items: [item1, item2, item3], delegate: self)
+        model = Model(items: [item1, item2, item3], delegate: self, resultLabel: resultLabel)
         
         createGradinet()
     }
@@ -58,19 +64,15 @@ class CalculatorViewController: UIViewController {
 
 extension CalculatorViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print(scrollView.contentOffset.x + scrollView.contentInset.left)
+        
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("scrollViewWillEndDragging ", targetContentOffset.pointee.x)
-        let normalize = max(0, targetContentOffset.pointee.x + scrollView.contentInset.left) + 25
-        let index = Int(normalize / 50)
-        targetContentOffset.pointee.x = CGFloat(index) * 50 - scrollView.contentInset.left
-        print("scrollViewWillEndDragging ", normalize, index, targetContentOffset.pointee.x)
+        model.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scrollViewDidEndDecelerating")
+        model.scrollViewDidEndDecelerating(scrollView)
     }
 }
 
@@ -95,14 +97,17 @@ extension CalculatorViewController {
     class Model {
         var items: [Item]
         var delegate: CalculatorViewController
+        var resultLabel: UILabel
         
-        init(items: [Item], delegate: CalculatorViewController) {
+        init(items: [Item], delegate: CalculatorViewController, resultLabel: UILabel) {
             self.items = items
             self.delegate = delegate
+            self.resultLabel = resultLabel
             self.items.forEach {
                 setup(item: $0)
                 createRange(item: $0)
             }
+            self.calculateResult()
         }
         
         func setup(item: Item) {
@@ -111,13 +116,13 @@ extension CalculatorViewController {
         }
         
         func createRange(item: Item) {
-            let labelSize: CGFloat = 50
+            item.scrollView.subviews.forEach { $0.removeFromSuperview() }
             let range = item.dimention.range
             for index in range.start...range.end {
                 let normalizedIndex = index - range.start
                 
                 let label = UILabel(frame:
-                    CGRect(x: CGFloat(normalizedIndex) * labelSize, y: 0, width: labelSize, height: labelSize))
+                    CGRect(x: CGFloat(normalizedIndex) * item.labelWidth, y: 0, width: item.labelWidth, height: item.labelWidth))
                 label.textAlignment = .center
                 label.font = ProjectFont.base.with(size: 18)
                 label.text = "\(index)"
@@ -125,11 +130,30 @@ extension CalculatorViewController {
                 item.scrollView.addSubview(label)
             }
             
-            item.scrollView.contentSize = CGSize(width: CGFloat(item.dimention.count) * labelSize, height: labelSize)
+            item.scrollView.contentSize = CGSize(width: CGFloat(item.dimention.count) * item.labelWidth, height: item.labelWidth)
             
-            item.scrollView.contentInset.left = (UIScreen.main.bounds.width - labelSize) / 2
-            item.scrollView.contentInset.right = (UIScreen.main.bounds.width - labelSize) / 2
+            item.scrollView.contentInset.left = (UIScreen.main.bounds.width - item.labelWidth) / 2
+            item.scrollView.contentInset.right = (UIScreen.main.bounds.width - item.labelWidth) / 2
             item.scrollView.contentOffset.x = -item.scrollView.contentInset.left
+        }
+        
+        func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+            let section = Section(rawValue: scrollView.tag)!
+            items.filter { $0.section == section }.first?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+        }
+        
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            let section = Section(rawValue: scrollView.tag)!
+            items.filter { $0.section == section }.first?.scrollViewDidEndDecelerating(scrollView)
+            calculateResult()
+        }
+        
+        func calculateResult() {
+            let height = items.filter { $0.section == .height }.first!.selectedNumber / 100
+            let weight = items.filter { $0.section == .weight }.first!.selectedNumber
+            
+            let result = weight / pow(height, 2)
+            resultLabel.text = String(format: "%.2f", result)
         }
     }
     
@@ -144,13 +168,32 @@ extension CalculatorViewController {
         
         var scrollView: UIScrollView
         var titleLabel: UILabel
+        let labelWidth: CGFloat = 50
         
         init(section: Section, dimention: Dimension, scrollView: UIScrollView, titleLabel: UILabel) {
-            self.section = section
             self.dimention = dimention
             self.scrollView = scrollView
             self.scrollView.tag = section.rawValue
             self.titleLabel = titleLabel
+            self.section = section
+        }
+        
+        func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+            print("scrollViewWillEndDragging ", targetContentOffset.pointee.x)
+            let normalize = max(0, targetContentOffset.pointee.x + scrollView.contentInset.left) + labelWidth / 2
+            let index = Int(normalize / labelWidth)
+            targetContentOffset.pointee.x = CGFloat(index) * labelWidth - scrollView.contentInset.left
+            print("scrollViewWillEndDragging ", normalize, index, targetContentOffset.pointee.x)
+        }
+        
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            print("selectedNumber", selectedNumber)
+        }
+        
+        var selectedNumber: CGFloat {
+            let normalizedX = scrollView.contentOffset.x + scrollView.contentInset.left
+            let index = Int(normalizedX / labelWidth)
+            return CGFloat(index + dimention.range.start)
         }
     }
     
@@ -169,7 +212,7 @@ extension CalculatorViewController {
             case .cm:
                 return (50, 250)
             case .inch:
-                return (20, 200)
+                return (19, 99)
             case .kg:
                 return (10, 200)
             case .lbs:

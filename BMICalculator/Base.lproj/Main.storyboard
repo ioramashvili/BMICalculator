@@ -68,7 +68,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ასაკი" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLd-YD-3Ra">
-                                                                <rect key="frame" x="8" y="0.0" width="46.5" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="42.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -125,7 +125,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="წონა" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFn-Kp-QiL">
-                                                                <rect key="frame" x="8" y="0.0" width="42" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="40.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -182,7 +182,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="სიმაღლე" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68e-l0-f1J">
-                                                                <rect key="frame" x="8" y="0.0" width="78" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="77.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -261,10 +261,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="cdX-9d-LZO"/>
                     <connections>
+                        <outlet property="ageLabel" destination="YLd-YD-3Ra" id="Bl9-0w-8SK"/>
                         <outlet property="ageScrollView" destination="Rlm-n9-F6R" id="Xln-Aa-uAy"/>
                         <outlet property="controlerWrapperView" destination="Pm6-CC-Yao" id="rZK-UY-2ls"/>
+                        <outlet property="heightLabel" destination="68e-l0-f1J" id="c68-Sn-XQO"/>
                         <outlet property="heightScrollView" destination="qg8-BL-tFQ" id="7tb-92-o4k"/>
                         <outlet property="navigationBar" destination="mIr-Xe-Fa0" id="bgq-lP-eiq"/>
+                        <outlet property="resultLabel" destination="Hyj-qz-Eb4" id="4Na-VZ-MvW"/>
+                        <outlet property="weightLabel" destination="vFn-Kp-QiL" id="q9H-Fm-OAN"/>
                         <outlet property="weightScrollView" destination="BwX-R1-zWz" id="GEM-w6-vca"/>
                     </connections>
                 </viewController>
