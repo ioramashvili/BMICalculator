@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -41,7 +40,14 @@
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="კალკულატორი" id="BJU-rd-fiy"/>
+                                    <navigationItem title="კალკულატორი" id="BJU-rd-fiy">
+                                        <barButtonItem key="rightBarButtonItem" image="save" id="izF-Ef-sCi">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="save:" destination="6CD-HG-eyW" id="sJf-2b-8wv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bAH-7O-6Cw">
@@ -68,16 +74,16 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ასაკი" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLd-YD-3Ra">
-                                                                <rect key="frame" x="8" y="0.0" width="42.5" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="46.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lwp-Bn-F80">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lwp-Bn-F80" customClass="CustomSegmented" customModule="BMICalculator" customModuleProvider="target">
                                                                 <rect key="frame" x="238" y="0.0" width="129" height="29"/>
                                                                 <segments>
-                                                                    <segment title="მამრ"/>
                                                                     <segment title="მდედრ"/>
+                                                                    <segment title="მამრ"/>
                                                                 </segments>
                                                                 <color key="tintColor" red="0.28627450980000002" green="0.77647058820000003" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             </segmentedControl>
@@ -125,12 +131,12 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="წონა" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFn-Kp-QiL">
-                                                                <rect key="frame" x="8" y="0.0" width="40.5" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="42" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ve-yY-ekn">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ve-yY-ekn" customClass="CustomSegmented" customModule="BMICalculator" customModuleProvider="target">
                                                                 <rect key="frame" x="278" y="0.0" width="89" height="29"/>
                                                                 <segments>
                                                                     <segment title="კგ"/>
@@ -182,12 +188,12 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="სიმაღლე" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68e-l0-f1J">
-                                                                <rect key="frame" x="8" y="0.0" width="77.5" height="28"/>
+                                                                <rect key="frame" x="8" y="0.0" width="78" height="28"/>
                                                                 <fontDescription key="fontDescription" name="MyGeocell-Regular" family="MyGeocell" pointSize="17"/>
                                                                 <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TOH-kY-dtz">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TOH-kY-dtz" customClass="CustomSegmented" customModule="BMICalculator" customModuleProvider="target">
                                                                 <rect key="frame" x="278" y="0.0" width="89" height="29"/>
                                                                 <segments>
                                                                     <segment title="სმ"/>
@@ -264,11 +270,14 @@
                         <outlet property="ageLabel" destination="YLd-YD-3Ra" id="Bl9-0w-8SK"/>
                         <outlet property="ageScrollView" destination="Rlm-n9-F6R" id="Xln-Aa-uAy"/>
                         <outlet property="controlerWrapperView" destination="Pm6-CC-Yao" id="rZK-UY-2ls"/>
+                        <outlet property="genderLabelSegmentedControl" destination="Lwp-Bn-F80" id="7Yw-is-15r"/>
                         <outlet property="heightLabel" destination="68e-l0-f1J" id="c68-Sn-XQO"/>
+                        <outlet property="heightLabelSegmentedControl" destination="8Ve-yY-ekn" id="j1i-P6-568"/>
                         <outlet property="heightScrollView" destination="qg8-BL-tFQ" id="7tb-92-o4k"/>
                         <outlet property="navigationBar" destination="mIr-Xe-Fa0" id="bgq-lP-eiq"/>
                         <outlet property="resultLabel" destination="Hyj-qz-Eb4" id="4Na-VZ-MvW"/>
                         <outlet property="weightLabel" destination="vFn-Kp-QiL" id="q9H-Fm-OAN"/>
+                        <outlet property="weightLabelSegmentedControl" destination="TOH-kY-dtz" id="MWv-ji-Xsi"/>
                         <outlet property="weightScrollView" destination="BwX-R1-zWz" id="GEM-w6-vca"/>
                     </connections>
                 </viewController>
@@ -295,4 +304,7 @@
             <point key="canvasLocation" x="1309.5999999999999" y="1570.1649175412294"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="save" width="22" height="22"/>
+    </resources>
 </document>

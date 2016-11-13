@@ -13,6 +13,10 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     
+    @IBOutlet weak var genderLabelSegmentedControl: CustomSegmented!
+    @IBOutlet weak var heightLabelSegmentedControl: CustomSegmented!
+    @IBOutlet weak var weightLabelSegmentedControl: CustomSegmented!
+    
     @IBOutlet weak var resultLabel: UILabel!
     
     var model: Model!
@@ -22,13 +26,29 @@ class CalculatorViewController: UIViewController {
         
         navigationBar.defaultBar()
         
-        let item1 = Item(section: .age, dimention: .male, scrollView: ageScrollView, titleLabel: ageLabel)
-        let item2 = Item(section: .height, dimention: .cm, scrollView: heightScrollView, titleLabel: heightLabel)
-        let item3 = Item(section: .weight, dimention: .kg, scrollView: weightScrollView, titleLabel: weightLabel)
+        let item1 = Item(
+            section: .age,
+            scrollView: ageScrollView,
+            titleLabel: ageLabel,
+            segmentedControl: genderLabelSegmentedControl)
+        let item2 = Item(
+            section: .height,
+            scrollView: heightScrollView,
+            titleLabel: heightLabel,
+            segmentedControl: heightLabelSegmentedControl)
+        let item3 = Item(
+            section: .weight,
+            scrollView: weightScrollView,
+            titleLabel: weightLabel,
+            segmentedControl: weightLabelSegmentedControl)
         
         model = Model(items: [item1, item2, item3], delegate: self, resultLabel: resultLabel)
         
         createGradinet()
+    }
+    
+    func segmentedValueChaged(sender: CustomSegmented) {
+        model.segmentedValueChaged(sender: sender)
     }
     
     func createGradinet() {
@@ -58,6 +78,10 @@ class CalculatorViewController: UIViewController {
         controlerWrapperView.layer.shadowRadius = 8
         controlerWrapperView.layer.shadowColor = UIColor.white.cgColor
         controlerWrapperView.layer.shadowOffset = CGSize(width: 0, height: 0)
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        
     }
 }
 
@@ -92,20 +116,32 @@ extension CalculatorViewController {
                 return "წონა"
             }
         }
+        
+        var dimensions: (start: Dimension, end: Dimension) {
+            switch self {
+            case .age:
+                return (.female, .male)
+            case .height:
+                return (.cm, .inch)
+            case .weight:
+                return (.kg, .lbs)
+            }
+        }
     }
     
     class Model {
         var items: [Item]
-        var delegate: CalculatorViewController
+        weak var delegate: CalculatorViewController?
         var resultLabel: UILabel
         
-        init(items: [Item], delegate: CalculatorViewController, resultLabel: UILabel) {
+        init(items: [Item], delegate: CalculatorViewController?, resultLabel: UILabel) {
             self.items = items
             self.delegate = delegate
             self.resultLabel = resultLabel
             self.items.forEach {
                 setup(item: $0)
                 createRange(item: $0)
+                $0.segmentedControl.addTarget(delegate, action: #selector(delegate?.segmentedValueChaged(sender:)), for: .valueChanged)
             }
             self.calculateResult()
         }
@@ -118,6 +154,13 @@ extension CalculatorViewController {
         func createRange(item: Item) {
             item.scrollView.subviews.forEach { $0.removeFromSuperview() }
             let range = item.dimention.range
+            
+            var lastSelectedNumber = Item.getSavedData(onSection: item.section).selectedNumber
+            lastSelectedNumber = (range.start...range.end).contains(lastSelectedNumber) ? lastSelectedNumber : 0
+            let lastSelectedIndex = max(lastSelectedNumber - range.start, 0)
+            
+            print("lastSelectedIndex in section ", item.section.titile, item.dimention, lastSelectedIndex)
+            
             for index in range.start...range.end {
                 let normalizedIndex = index - range.start
                 
@@ -134,7 +177,9 @@ extension CalculatorViewController {
             
             item.scrollView.contentInset.left = (UIScreen.main.bounds.width - item.labelWidth) / 2
             item.scrollView.contentInset.right = (UIScreen.main.bounds.width - item.labelWidth) / 2
-            item.scrollView.contentOffset.x = -item.scrollView.contentInset.left
+//            item.scrollView.contentOffset.x = -item.scrollView.contentInset.left
+            
+            item.scrollView.contentOffset.x = CGFloat(lastSelectedIndex) * item.labelWidth - item.scrollView.contentInset.left
         }
         
         func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -154,6 +199,44 @@ extension CalculatorViewController {
             
             let result = weight / pow(height, 2)
             resultLabel.text = String(format: "%.2f", result)
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.items.forEach {
+                    $0.save()
+                }
+            }
+        }
+        
+        func getItem(onSection section: Section) -> Item {
+            return items.first(where: { $0.section == section })!
+        }
+        
+        func segmentedValueChaged(sender: CustomSegmented) {
+            guard let section = Section(rawValue: sender.tag) else {
+                return
+            }
+            
+            switch section {
+            case .age:
+                print("age")
+                getItem(onSection: .age).dimention = sender.getSelectedDimension
+            case .height, .weight:
+                let selectedIndex = sender.selectedSegmentIndex
+                let heightSectionItem = getItem(onSection: .height)
+                let weigthSectionItem = getItem(onSection: .weight)
+                
+                heightSectionItem.segmentedControl.selectedSegmentIndex = selectedIndex
+                weigthSectionItem.segmentedControl.selectedSegmentIndex = selectedIndex
+                
+                heightSectionItem.dimention = heightSectionItem.segmentedControl.getSelectedDimension
+                weigthSectionItem.dimention = weigthSectionItem.segmentedControl.getSelectedDimension
+                
+                [heightSectionItem, weigthSectionItem].forEach {
+                    createRange(item: $0)
+                }
+            }
+            
+            calculateResult()
         }
     }
     
@@ -167,14 +250,19 @@ extension CalculatorViewController {
         }
         
         var scrollView: UIScrollView
+        var segmentedControl: CustomSegmented
         var titleLabel: UILabel
         let labelWidth: CGFloat = 50
         
-        init(section: Section, dimention: Dimension, scrollView: UIScrollView, titleLabel: UILabel) {
-            self.dimention = dimention
+        init(section: Section, scrollView: UIScrollView, titleLabel: UILabel, segmentedControl: CustomSegmented) {
+            self.dimention = Item.getSavedData(onSection: section).dimension
             self.scrollView = scrollView
             self.scrollView.tag = section.rawValue
             self.titleLabel = titleLabel
+            self.segmentedControl = segmentedControl
+            self.segmentedControl.dimensions = section.dimensions
+            self.segmentedControl.selectedSegmentIndex = section.dimensions.start == dimention ? 0 : 1
+            self.segmentedControl.tag = section.rawValue
             self.section = section
         }
         
@@ -195,19 +283,36 @@ extension CalculatorViewController {
             let index = Int(normalizedX / labelWidth)
             return CGFloat(index + dimention.range.start)
         }
+        
+        func save() {
+            UserDefaults.standard.set(dimention.rawValue, forKey: "\(section.rawValue)-dimension")
+            UserDefaults.standard.set(selectedNumber, forKey: "\(section.rawValue)-selectedNumber")
+            print("Save section ", section.titile, selectedNumber, dimention.title)
+        }
+        
+        static func getSavedData(onSection section: Section) -> (dimension: Dimension, selectedNumber: Int) {
+            guard let dimensionValue = UserDefaults.standard.object(forKey: "\(section.rawValue)-dimension") as? Int,
+                let selectedNumber = UserDefaults.standard.object(forKey: "\(section.rawValue)-selectedNumber") as? Int,
+                let dimension = Dimension(rawValue: dimensionValue) else {
+                return (section.dimensions.start, 0)
+            }
+            print("Saved ", dimension.title, selectedNumber, section.titile)
+            return (dimension, selectedNumber)
+        }
     }
     
     enum Dimension: Int {
-        case male = 0
-        case female
+        case female = 0
+        case male
         case cm
         case inch
         case kg
         case lbs
+        case none
         
         var range: (start: Int, end: Int) {
             switch self {
-            case .male, .female:
+            case .female, .male:
                 return (1, 100)
             case .cm:
                 return (50, 250)
@@ -217,6 +322,27 @@ extension CalculatorViewController {
                 return (10, 200)
             case .lbs:
                 return (50, 300)
+            case .none:
+                return (0, 0)
+            }
+        }
+        
+        var title: String {
+            switch self {
+            case .female:
+                return "მდედრ"
+            case .male:
+                return "მამრ"
+            case .cm:
+                return "სმ"
+            case .inch:
+                return "ინჩ"
+            case .kg:
+                return "კგ"
+            case .lbs:
+                return "ლბს"
+            case .none:
+                return "none"
             }
         }
         
@@ -226,9 +352,12 @@ extension CalculatorViewController {
     }
 }
 
-
-
-
+class CustomSegmented: UISegmentedControl {
+    var dimensions : (start: CalculatorViewController.Dimension, end: CalculatorViewController.Dimension) = (.none, .none)
+    var getSelectedDimension: CalculatorViewController.Dimension {
+        return selectedSegmentIndex == 0 ? dimensions.start : dimensions.end
+    }
+}
 
 
 
